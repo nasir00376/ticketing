@@ -6,5 +6,5 @@ export function errorHandler(error: Error, req: Request, res: Response, next: Ne
     return res.status(error.statusCode).send({ errors: error.serializeError() });
   }
 
-  return res.status(400).send({ errors: [{ message: error.message }] })
+  return res.status(401).send({ errors: [{ message: error.message || 'Something went wrong.' }] })
 }

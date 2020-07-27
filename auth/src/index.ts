@@ -3,20 +3,18 @@ import 'express-async-errors';
 
 import { json } from 'body-parser';
 import { errorHandler } from './middlewares/error.handler';
-import { DatabaseError, NotFoundError } from './error';
+import { NotFoundError } from './error';
+
+import { CurrentUserRouter, SignUpRouter } from './routes';
 
 const PORT = 3000;
-
 const app = express();
 
 // Middlewares
 app.use(json());
 
-app.get('/api/users/currentUser', (req, res) => {
-  console.log('Current User');
-  throw new DatabaseError();
-  res.send({})
-});
+app.use('/api/users', CurrentUserRouter);
+app.use('/api/users', SignUpRouter);
 
 app.all('*', async (req, res) => {
   throw new NotFoundError('Route not found.');
