@@ -1,6 +1,8 @@
 import express from 'express';
 import 'express-async-errors';
 
+import mongoose from 'mongoose';
+
 import { json } from 'body-parser';
 import { errorHandler } from './middlewares/error.handler';
 import { NotFoundError } from './error';
@@ -22,4 +24,21 @@ app.all('*', async (req, res) => {
 
 app.use(errorHandler);
 
-app.listen(PORT, () => console.log(`Auth service is listening on port: ${PORT}!`));
+const bootstrap = async () => {
+  try {
+    await mongoose.connect('mongodb://auth-mongo-srv:27017/auth', {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      useCreateIndex: true
+    });
+  
+    console.log('MongoDb is connected.');
+    
+  } catch (error) {
+    console.error(error);
+  }
+
+  app.listen(PORT, () => console.log(`Auth service is listening on port: ${PORT}!`));
+}
+
+bootstrap();
