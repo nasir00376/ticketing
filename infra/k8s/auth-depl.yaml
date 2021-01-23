@@ -5,7 +5,7 @@ metadata:
 spec:
   # No. of pods to be run
   replicas: 1 
-  # To tell the deployment how to find all the pods that are going
+  # To tell the deployment how to find all the pods that are going to create
   selector:
     matchLabels:
       app: auth 
@@ -22,7 +22,7 @@ spec:
           image: nasir/auth 
 
 # Now, remember anytime we create a deployment we usually are going to end up creating a service to go along with it
-# This is a k8s service, give access to to a pod.
+# This is a k8s service, give access to a pod.
 # Default is cluster-ip service; Going to allow communication to the service from anything else running only inside our cluster.
 
 ---
