@@ -1,0 +1,41 @@
+post:
+  tags:
+    - SWVL API / Notification
+  security:
+    - JWT: []
+  summary: >
+    Create a new notification
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: "./components.yml#/components/schemas/NotificationRequest"
+  responses:
+    "200":
+      description: >
+        Result set containing the single record
+      content:
+        application/json:
+          schema:
+            $ref: "./components.yml#/components/schemas/NotificationResponse"
+    "400":
+      $ref: "../responses.yml#/BadRequest"
+
+get:
+  tags:
+    - SWVL API / Notification
+  security:
+    - JWT: []
+  summary: |
+    Get a list of notifications
+  responses:
+    "200":
+      description: |
+        Result set containing array of notifications objects
+      content:
+        application/json:
+          schema:
+            $ref: "./components.yml#/components/schemas/NotificationListResponse"
+    "400":
+      $ref: '../responses.yml#/BadRequest'

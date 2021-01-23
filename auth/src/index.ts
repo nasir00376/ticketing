@@ -1,6 +1,7 @@
 import express from 'express';
 import 'express-async-errors';
 
+import Debug from 'debug';
 import mongoose from 'mongoose';
 
 import { json } from 'body-parser';
@@ -8,6 +9,8 @@ import { errorHandler } from './middlewares/error.handler';
 import { NotFoundError } from './error';
 
 import { CurrentUserRouter, SignUpRouter } from './routes';
+
+const debug: Debug.IDebugger = Debug('ticketing:app')
 
 const PORT = 3000;
 const app = express();
@@ -32,7 +35,7 @@ const bootstrap = async () => {
       useCreateIndex: true
     });
   
-    console.log('MongoDb is connected.');
+    debug('MongoDb is connected.');
     
   } catch (error) {
     console.error(error);

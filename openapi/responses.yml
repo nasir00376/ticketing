@@ -1,0 +1,6 @@
+BadRequest:
+  description: |
+    The request could not be understood by the server due to malformed syntax
+NotFound:
+  description: |
+    An entity with this ID does not exist

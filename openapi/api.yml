@@ -1,0 +1,16 @@
+openapi: 3.0.0
+
+info:
+  description: |
+    API specification of Ticketing App.
+  version: "1"
+  title: API for Ticketing
+
+servers:
+  - url: "http://ticketing.dev/api"
+    description: Auth service.
+
+paths:
+  # auth
+  /auth:
+    $ref: "./auth/auth.yml"
