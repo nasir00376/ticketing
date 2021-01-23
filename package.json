@@ -1,0 +1,23 @@
+{
+  "name": "ticketing",
+  "version": "1.0.0",
+  "description": "> Users can list a ticket for an event (concert, sports) for sale. Other users can purchase this ticket. Any user can list tickets for sale and > purchase tickets. > > When a user attempts to purchase a ticket, the ticket is **'locked'** for 15 mintutes. The User has 15 mintutes to entter their payment info.while locked, no other user can purchase ticket. After 15 minutes, the ticket should **'unlock'**. Ticket price can be edited if they are not locked.",
+  "main": "index.js",
+  "scripts": {
+    "docs": "swagger-cli bundle openapi/api.yml > openapi/docs.json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nasir00376/ticketing.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nasir00376/ticketing/issues"
+  },
+  "homepage": "https://github.com/nasir00376/ticketing#readme",
+  "devDependencies": {
+    "swagger-cli": "^4.0.4"
+  }
+}
