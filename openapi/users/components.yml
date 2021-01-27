@@ -1,0 +1,57 @@
+components:
+  parameters:
+    id:
+      name: id
+      in: path
+      schema:
+        type: array
+        items:
+          type: string
+      required: true
+  schemas:
+    ID:
+      type: string
+      pattern: '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}'
+      example: "770c1ffb-53d9-10c5-81af-2d4b78ad3404"
+
+    CreateUserRequest:
+      type: object
+      properties:
+        email:
+          description: >
+            An email of a user
+          type: string
+          example: "support@ticketing.com"
+        password:
+          description: >
+            A unique password
+          type: string
+        
+      required:
+        - email
+        - password
+
+    UserResponse:
+      allOf:
+        - type: object
+          properties:
+            id:
+              $ref: "#/components/schemas/ID"
+        - $ref: "#/components/schemas/CreateUserRequest"
+
+    CreateUserResponse:
+      type: object
+      properties:
+        result:
+          $ref: "#/components/schemas/UserResponse"   
+                  
+    UserListResponse:
+      type: object
+      properties:
+        result:
+          type: array
+          items:
+            $ref: "#/components/schemas/UserResponse"
+              
+
+

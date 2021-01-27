@@ -3,7 +3,7 @@
   "info": {
     "description": "API specification of Ticketing App.\n",
     "version": "1",
-    "title": "API for Ticketing"
+    "title": "Ticketing API"
   },
   "servers": [
     {
@@ -12,17 +12,17 @@
     }
   ],
   "paths": {
-    "/auth": {
+    "/users/signup": {
       "post": {
         "tags": [
-          "SWVL API / Notification"
+          "Ticketing API / Auth"
         ],
         "security": [
           {
             "JWT": []
           }
         ],
-        "summary": "Create a new notification\n",
+        "summary": "Create a new user\n",
         "requestBody": {
           "required": true,
           "content": {
@@ -30,39 +30,26 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "text": {
-                    "description": "A body of notification that should be sent to customer\n",
+                  "email": {
+                    "description": "An email of a user\n",
                     "type": "string",
-                    "example": "Your account has been verified."
+                    "example": "support@ticketing.com"
                   },
-                  "type": {
-                    "description": "A type of notification that describes it should be sent in group of or each customer\n",
-                    "type": "string",
-                    "enum": [
-                      "single",
-                      "group"
-                    ]
-                  },
-                  "notificationType": {
-                    "description": "Describes type of notification a push or sms\n",
-                    "type": "string",
-                    "example": "sms",
-                    "enum": [
-                      "sms",
-                      "push"
-                    ]
+                  "password": {
+                    "description": "A unique password\n",
+                    "type": "string"
                   }
                 },
                 "required": [
-                  "text",
-                  "type"
+                  "email",
+                  "password"
                 ]
               }
             }
           }
         },
         "responses": {
-          "200": {
+          "201": {
             "description": "Result set containing the single record\n",
             "content": {
               "application/json": {
@@ -72,21 +59,17 @@
                     "result": {
                       "allOf": [
                         {
-                          "$ref": "#/paths/~1auth/post/requestBody/content/application~1json/schema"
-                        },
-                        {
                           "type": "object",
                           "properties": {
-                            "status": {
+                            "id": {
                               "type": "string",
-                              "example": "created",
-                              "enum": [
-                                "created",
-                                "pending",
-                                "sent"
-                              ]
+                              "pattern": "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}",
+                              "example": "770c1ffb-53d9-10c5-81af-2d4b78ad3404"
                             }
                           }
+                        },
+                        {
+                          "$ref": "#/paths/~1users~1signup/post/requestBody/content/application~1json/schema"
                         }
                       ]
                     }
@@ -96,23 +79,23 @@
             }
           },
           "400": {
-            "$ref": "#/paths/~1auth/get/responses/400"
+            "$ref": "#/paths/~1users~1signup/get/responses/400"
           }
         }
       },
       "get": {
         "tags": [
-          "SWVL API / Notification"
+          "Ticketing API / Auth"
         ],
         "security": [
           {
             "JWT": []
           }
         ],
-        "summary": "Get a list of notifications\n",
+        "summary": "Get a list of users\n",
         "responses": {
           "200": {
-            "description": "Result set containing array of notifications objects\n",
+            "description": "Result set containing array of users objects\n",
             "content": {
               "application/json": {
                 "schema": {
@@ -121,25 +104,7 @@
                     "result": {
                       "type": "array",
                       "items": {
-                        "allOf": [
-                          {
-                            "$ref": "#/paths/~1auth/post/requestBody/content/application~1json/schema"
-                          },
-                          {
-                            "type": "object",
-                            "properties": {
-                              "status": {
-                                "type": "string",
-                                "example": "created",
-                                "enum": [
-                                  "created",
-                                  "pending",
-                                  "sent"
-                                ]
-                              }
-                            }
-                          }
-                        ]
+                        "$ref": "#/paths/~1users~1signup/post/responses/201/content/application~1json/schema/properties/result"
                       }
                     }
                   }

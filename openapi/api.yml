@@ -4,13 +4,13 @@ info:
   description: |
     API specification of Ticketing App.
   version: "1"
-  title: API for Ticketing
+  title: Ticketing API
 
 servers:
   - url: "http://ticketing.dev/api"
     description: Auth service.
 
 paths:
-  # auth
-  /auth:
-    $ref: "./auth/auth.yml"
+  # users
+  /users/signup:
+    $ref: "./users/users.yml"

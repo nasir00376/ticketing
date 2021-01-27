@@ -1,6 +1,7 @@
 import { Router, Request, Response } from 'express';
 import { body, validationResult } from 'express-validator';
-import { RequestValidationError } from '../error';
+import { User } from '../models/user.model';
+import { RequestValidationError, BadRequestError } from '../error';
 
 const router: Router = Router();
 
@@ -17,7 +18,17 @@ router.post('/signup', [
 
   if (!errors.isEmpty()) { throw new RequestValidationError(errors.array()) }
 
-  res.send({})
+  const { email, password } = req.body;
+
+  const existingUser = await User.findOne({email});
+
+  if(existingUser) {
+    throw new BadRequestError('Email already taken.')
+  }
+
+  const user = User.build({ email, password })
+  await user.save();
+  res.status(201).send({result: user}) 
 });
 
 export { router as SignUpRouter }

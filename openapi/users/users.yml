@@ -1,41 +1,41 @@
 post:
   tags:
-    - SWVL API / Notification
+    - Ticketing API / Auth
   security:
     - JWT: []
   summary: >
-    Create a new notification
+    Create a new user
   requestBody:
     required: true
     content:
       application/json:
         schema:
-          $ref: "./components.yml#/components/schemas/NotificationRequest"
+          $ref: "./components.yml#/components/schemas/CreateUserRequest"
   responses:
-    "200":
+    "201":
       description: >
         Result set containing the single record
       content:
         application/json:
           schema:
-            $ref: "./components.yml#/components/schemas/NotificationResponse"
+            $ref: "./components.yml#/components/schemas/CreateUserResponse"
     "400":
       $ref: "../responses.yml#/BadRequest"
 
 get:
   tags:
-    - SWVL API / Notification
+    - Ticketing API / Auth
   security:
     - JWT: []
   summary: |
-    Get a list of notifications
+    Get a list of users
   responses:
     "200":
       description: |
-        Result set containing array of notifications objects
+        Result set containing array of users objects
       content:
         application/json:
           schema:
-            $ref: "./components.yml#/components/schemas/NotificationListResponse"
+            $ref: "./components.yml#/components/schemas/UserListResponse"
     "400":
       $ref: '../responses.yml#/BadRequest'
