@@ -19,7 +19,13 @@ spec:
       containers:
         # Containers running inside the pod
         - name: auth
-          image: nasir/auth 
+          image: nasir/auth
+          env:
+            - name: JWT_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: jwt-secret
+                  key: JWT_KEY
 
 # Now, remember anytime we create a deployment we usually are going to end up creating a service to go along with it
 # This is a k8s service, give access to a pod.
