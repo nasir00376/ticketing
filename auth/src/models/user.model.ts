@@ -16,7 +16,7 @@ const UserSchema = new Schema<UserDocument, UserModel>({
   toJSON: {
     transform(doc, ret) {
       ret.id = ret._id;
-      
+
       delete ret._id;
       delete ret.password;
       delete ret.__v 
@@ -60,4 +60,4 @@ UserSchema.statics.build = (attrs: UserAttrs) => new User(attrs);
 
 const User = model<UserDocument, UserModel>("User", UserSchema);
 
-export { User };
+export { User, UserDocument };

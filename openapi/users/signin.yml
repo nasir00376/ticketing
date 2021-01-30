@@ -1,0 +1,23 @@
+post:
+  tags:
+    - Ticketing API / Auth
+  security:
+    - JWT: []
+  summary: >
+    Sign in
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: "./components.yml#/components/schemas/CreateUserRequest"
+  responses:
+    "201":
+      description: >
+        Result set containing the single record
+      content:
+        application/json:
+          schema:
+            $ref: "./components.yml#/components/schemas/CreateUserResponse"
+    "400":
+      $ref: "../responses.yml#/BadRequest"

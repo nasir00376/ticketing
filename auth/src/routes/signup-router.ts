@@ -1,12 +1,13 @@
 import { Router, Request, Response } from "express";
-import { body, validationResult } from "express-validator";
+import { body } from "express-validator";
 import { User } from "../models/user.model";
-import { RequestValidationError, BadRequestError } from "../error";
+import { BadRequestError } from "../error";
+import { validateRequest } from '../middlewares/validate-request';
 
 const router: Router = Router();
 
 router.post(
-  "/signup",
+  "/",
   [
     body("email").isEmail().withMessage("Email must be valid."),
     body("password")
@@ -14,12 +15,8 @@ router.post(
       .isLength({ min: 4, max: 20 })
       .withMessage("Password must be between 4 and 20 characters."),
   ],
+  validateRequest,
   async (req: Request, res: Response) => {
-    const errors = validationResult(req);
-
-    if (!errors.isEmpty()) {
-      throw new RequestValidationError(errors.array());
-    }
 
     const { email, password } = req.body;
 

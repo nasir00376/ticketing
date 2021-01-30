@@ -7,7 +7,7 @@ info:
   title: Ticketing API
 
 servers:
-  - url: "http://ticketing.dev/api"
+  - url: "https://ticketing.dev/api"
     description: Auth service.
 
 paths:

@@ -9,7 +9,7 @@ import { json } from 'body-parser';
 import { errorHandler } from './middlewares/error.handler';
 import { NotFoundError } from './error';
 
-import { CurrentUserRouter, SignUpRouter } from './routes';
+import routes from './routes';
 
 const debug: Debug.IDebugger = Debug('ticketing:app')
 
@@ -23,9 +23,8 @@ app.use(cookieSession({
   signed: false,
   secure: true
 }))
-
-app.use('/api/users', CurrentUserRouter);
-app.use('/api/users', SignUpRouter);
+// app.use("/api/users/signup", SignUpRouter);
+routes(app);
 
 app.all('*', async (req, res) => {
   throw new NotFoundError('Route not found.');
@@ -37,7 +36,7 @@ const bootstrap = async () => {
   try {
     if(!process.env.JWT_KEY) {
       debug('JWT_KEY must be defined')
-      throw new Error('JWT_KEY must be defined')
+      throw new Error('FATAL ERROR: JWT_KEY is not defined.')
     }
 
     await mongoose.connect('mongodb://auth-mongo-srv:27017/auth', {
