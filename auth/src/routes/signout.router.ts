@@ -8,4 +8,4 @@ router.get("/", (req, res) => {
   res.send({})
 });
 
-export { router as SignOut };
+export { router as SignOutRouter };
