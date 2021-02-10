@@ -8,5 +8,5 @@ export default function (app: Express) {
   app.use("/api/users/signup", SignUpRouter);
   app.use("/api/users/signin", SignInRouter);
   app.use("/api/users/signout", SignOutRouter);
-  app.use("/api/users/currentUser", CurrentUserRouter);
+  app.use("/api/users/currentuser", CurrentUserRouter);
 };

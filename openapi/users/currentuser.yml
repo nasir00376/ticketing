@@ -1,0 +1,17 @@
+get:
+  tags:
+    - Ticketing API / Auth
+  security:
+    - JWT: []
+  summary: >
+    Current user
+  responses:
+    "201":
+      description: >
+        Result set containing the single record
+      content:
+        application/json:
+          schema:
+            $ref: "./components.yml#/components/schemas/CurrentUserResponse"
+    "400":
+      $ref: "../responses.yml#/BadRequest"

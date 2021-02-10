@@ -2,7 +2,7 @@ import { ErrorResult } from './errors';
 import { ValidationError } from 'express-validator';
 
 export class RequestValidationError extends ErrorResult {
-  statusCode = 402;
+  statusCode = 422;
 
   constructor(public errors: ValidationError[]) {
     super('Invalid request parameters.')

@@ -1,36 +1,9 @@
-import express from 'express';
-import 'express-async-errors';
-
-import Debug from 'debug';
 import mongoose from 'mongoose';
-import cookieSession from 'cookie-session';
+import { app } from './app';
+import Debug from "debug";
 
-import { json } from 'body-parser';
-import { errorHandler } from './middlewares/error.handler';
-import { NotFoundError } from './error';
-
-import routes from './routes';
-
-const debug: Debug.IDebugger = Debug('ticketing:app')
-
+const debug: Debug.IDebugger = Debug("ticketing:app");
 const PORT = 3000;
-const app = express();
-app.set('trust proxy', true);
-
-// Middlewares
-app.use(json());
-app.use(cookieSession({
-  signed: false,
-  secure: true
-}))
-// app.use("/api/users/signup", SignUpRouter);
-routes(app);
-
-app.all('*', async (req, res) => {
-  throw new NotFoundError('Route not found.');
-});
-
-app.use(errorHandler);
 
 const bootstrap = async () => {
   try {

@@ -1,0 +1,17 @@
+post:
+  tags:
+    - Ticketing API / Auth
+  security:
+    - JWT: []
+  summary: >
+    Signout
+  responses:
+    "20o":
+      description: >
+        An empty result set
+      content:
+        application/json:
+          schema:
+            $ref: "./components.yml#/components/schemas/SignoutResponse"
+    "400":
+      $ref: "../responses.yml#/BadRequest"

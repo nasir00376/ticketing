@@ -32,26 +32,41 @@ components:
         - password
 
     UserResponse:
+      type: object
+      properties:
+        email:
+          type: string
+          example: "support@ticketing.com"
+        id:
+          $ref: "#/components/schemas/ID"
+      required:
+        - email
+        - id
+
+    CurretnUser:
       allOf:
+        - $ref: "#/components/schemas/UserResponse"
         - type: object
           properties:
-            id:
-              $ref: "#/components/schemas/ID"
-        - $ref: "#/components/schemas/CreateUserRequest"
+            iat:
+              type: number
+              example: 167865
 
     CreateUserResponse:
       type: object
       properties:
         result:
-          $ref: "#/components/schemas/UserResponse"   
-                  
-    UserListResponse:
+          $ref: "#/components/schemas/UserResponse"
+          
+    CurrentUserResponse:
       type: object
       properties:
-        result:
-          type: array
-          items:
-            $ref: "#/components/schemas/UserResponse"
+        currentUser:
+          $ref: "#/components/schemas/UserResponse"
+                  
+    SignoutResponse:
+      type: object
+      properties:
               
 
 

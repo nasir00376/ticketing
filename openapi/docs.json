@@ -7,7 +7,7 @@
   },
   "servers": [
     {
-      "url": "http://ticketing.dev/api",
+      "url": "https://ticketing.dev/api",
       "description": "Auth service."
     }
   ],
@@ -22,7 +22,7 @@
             "JWT": []
           }
         ],
-        "summary": "Create a new user\n",
+        "summary": "Signup\n",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,20 +57,21 @@
                   "type": "object",
                   "properties": {
                     "result": {
-                      "allOf": [
-                        {
-                          "type": "object",
-                          "properties": {
-                            "id": {
-                              "type": "string",
-                              "pattern": "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}",
-                              "example": "770c1ffb-53d9-10c5-81af-2d4b78ad3404"
-                            }
-                          }
+                      "type": "object",
+                      "properties": {
+                        "email": {
+                          "type": "string",
+                          "example": "support@ticketing.com"
                         },
-                        {
-                          "$ref": "#/paths/~1users~1signup/post/requestBody/content/application~1json/schema"
+                        "id": {
+                          "type": "string",
+                          "pattern": "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}",
+                          "example": "770c1ffb-53d9-10c5-81af-2d4b78ad3404"
                         }
+                      },
+                      "required": [
+                        "email",
+                        "id"
                       ]
                     }
                   }
@@ -79,10 +80,50 @@
             }
           },
           "400": {
-            "$ref": "#/paths/~1users~1signup/get/responses/400"
+            "description": "The request could not be understood by the server due to malformed syntax\n"
           }
         }
-      },
+      }
+    },
+    "/users/signin": {
+      "post": {
+        "tags": [
+          "Ticketing API / Auth"
+        ],
+        "security": [
+          {
+            "JWT": []
+          }
+        ],
+        "summary": "Sign in\n",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/paths/~1users~1signup/post/requestBody/content/application~1json/schema"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Result set containing the single record\n",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/paths/~1users~1signup/post/responses/201/content/application~1json/schema"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/paths/~1users~1signup/post/responses/400"
+          }
+        }
+      }
+    },
+    "/users/currentuser": {
       "get": {
         "tags": [
           "Ticketing API / Auth"
@@ -92,20 +133,17 @@
             "JWT": []
           }
         ],
-        "summary": "Get a list of users\n",
+        "summary": "Current user\n",
         "responses": {
-          "200": {
-            "description": "Result set containing array of users objects\n",
+          "201": {
+            "description": "Result set containing the single record\n",
             "content": {
               "application/json": {
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "result": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/paths/~1users~1signup/post/responses/201/content/application~1json/schema/properties/result"
-                      }
+                    "currentUser": {
+                      "$ref": "#/paths/~1users~1signup/post/responses/201/content/application~1json/schema/properties/result"
                     }
                   }
                 }
@@ -113,7 +151,36 @@
             }
           },
           "400": {
-            "description": "The request could not be understood by the server due to malformed syntax\n"
+            "$ref": "#/paths/~1users~1signup/post/responses/400"
+          }
+        }
+      }
+    },
+    "/users/signout": {
+      "post": {
+        "tags": [
+          "Ticketing API / Auth"
+        ],
+        "security": [
+          {
+            "JWT": []
+          }
+        ],
+        "summary": "Signout\n",
+        "responses": {
+          "400": {
+            "$ref": "#/paths/~1users~1signup/post/responses/400"
+          },
+          "20o": {
+            "description": "An empty result set\n",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": null
+                }
+              }
+            }
           }
         }
       }

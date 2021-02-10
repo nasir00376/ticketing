@@ -13,4 +13,10 @@ servers:
 paths:
   # users
   /users/signup:
-    $ref: "./users/users.yml"
+    $ref: "./users/signup.yml"
+  /users/signin:
+    $ref: "./users/signin.yml"
+  /users/currentuser:
+    $ref: "./users/currentuser.yml"
+  /users/signout:
+    $ref: "./users/signout.yml"

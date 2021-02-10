@@ -4,7 +4,7 @@ post:
   security:
     - JWT: []
   summary: >
-    Create a new user
+    Signup
   requestBody:
     required: true
     content:
@@ -21,21 +21,3 @@ post:
             $ref: "./components.yml#/components/schemas/CreateUserResponse"
     "400":
       $ref: "../responses.yml#/BadRequest"
-
-get:
-  tags:
-    - Ticketing API / Auth
-  security:
-    - JWT: []
-  summary: |
-    Get a list of users
-  responses:
-    "200":
-      description: |
-        Result set containing array of users objects
-      content:
-        application/json:
-          schema:
-            $ref: "./components.yml#/components/schemas/UserListResponse"
-    "400":
-      $ref: '../responses.yml#/BadRequest'
