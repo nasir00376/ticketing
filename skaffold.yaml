@@ -20,3 +20,11 @@ build:
         manual:
           - src: 'src/**/*.ts'
             dest: .
+    - image: nasir/client
+      context: client
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+        - src: '**/*.js'
+          dest: .
