@@ -1,12 +1,17 @@
-const LandingPage = ({color}) => {
-  console.log({color})
-  return <h1>Landing page1</h1>
-}
+import buildClient from "../api/build-client";
 
-LandingPage.getInitialProps = () => {
-  console.log('I am on serverside');
+const LandingPage = ({ currentUser }) => {
+  console.log({ currentUser });
 
-  return { color: 'red' }
-}
+  return currentUser ? <h1>You're signed In</h1> : <h1>You're not signed In</h1>;
+};
+
+LandingPage.getInitialProps = async (context) => {
+  const client = buildClient(context);
+  if (typeof window === "undefined") return { currentUser: null };
+  const { data } = await client.get("/api/users/currentuser");
+
+  return data;
+};
 
 export default LandingPage;

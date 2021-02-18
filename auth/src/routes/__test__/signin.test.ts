@@ -3,13 +3,6 @@ import { app } from "../../app";
 
 describe("Signin", () => {
   describe("Success", () => {
-    it("should return a 201 on successfull signup", async () => {
-      return request(app)
-        .post("/api/users/signup")
-        .send({ email: "test@test.com", password: "password" })
-        .expect(201);
-    });
-
     it("should respond with cookie when valid credentials supplied", async () => {
       await request(app)
         .post("/api/users/signup")
